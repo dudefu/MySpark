@@ -1,7 +1,8 @@
 package hnbian.spark.ml.feature.transforming
-  import hnbian.spark.utils.SparkUtils
-  import org.apache.spark.ml.feature.StandardScaler
-  import org.apache.spark.ml.linalg.Vectors
+
+import hnbian.spark.utils.SparkUtils
+import org.apache.spark.ml.feature.StandardScaler
+import org.apache.spark.ml.linalg.Vectors
 
 /**
   * @author hnbian
@@ -9,14 +10,15 @@ package hnbian.spark.ml.feature.transforming
   *         @ Date 2018/12/28 16:03
   **/
 object StandardScaler extends App {
-  val spark = SparkUtils.getSparkSession("StandardScaler",4)
+  val spark = SparkUtils.getSparkSession("StandardScaler", 4)
+  //定义数据集
   val dataFrame = spark.createDataFrame(Seq(
     (0, Vectors.dense(1.0, 0.5, -1.0)),
     (1, Vectors.dense(2.0, 1.0, 1.0)),
     (2, Vectors.dense(4.0, 10.0, 2.0))
   )).toDF("id", "features")
 
-  dataFrame.show( false)
+  dataFrame.show(false)
   /**
     * +---+--------------+
     * |id |features      |
@@ -26,7 +28,7 @@ object StandardScaler extends App {
     * |2  |[4.0,10.0,2.0]|
     * +---+--------------+
     */
-    //定义StandardScaler 评估器 并设置输入输出与相关参数
+  //定义StandardScaler 评估器 并设置输入输出与相关参数
   val scaler = new StandardScaler()
     .setInputCol("features")
     .setOutputCol("scaledFeatures")
