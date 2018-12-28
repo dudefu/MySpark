@@ -9,7 +9,7 @@ import org.apache.spark.ml.feature.{OneHotEncoder, OneHotEncoderEstimator, Strin
   **/
 object OneHotEncoderEstimator extends App {
 
-  import hnbian.spark.SparkUtils
+  import hnbian.spark.utils.SparkUtils
 
   val spark = SparkUtils.getSparkSession("OneHotEncoder", 4)
 

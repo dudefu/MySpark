@@ -1,6 +1,6 @@
 package hnbian.spark.ml.feature.transforming
 
-import hnbian.spark.SparkUtils
+import hnbian.spark.utils.SparkUtils
 import org.apache.spark.ml.feature.PCA
 import org.apache.spark.ml.linalg.Vectors
 

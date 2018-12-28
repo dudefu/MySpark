@@ -1,7 +1,7 @@
-package hnbian.spark
+package hnbian.spark.utils
 
-import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SparkSession
+import org.apache.spark.{SparkConf, SparkContext}
 
 
 /**

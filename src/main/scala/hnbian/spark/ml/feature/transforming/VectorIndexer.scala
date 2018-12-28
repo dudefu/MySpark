@@ -1,6 +1,6 @@
 package hnbian.spark.ml.feature.transforming
 
-import hnbian.spark.SparkUtils
+import hnbian.spark.utils.SparkUtils
 import org.apache.spark.ml.feature.VectorIndexer
 import org.apache.spark.ml.linalg.{Vector, Vectors}
 

@@ -1,6 +1,6 @@
 package hnbian.spark.ml.feature.extractors
 
-import hnbian.spark.SparkUtils
+import hnbian.spark.utils.SparkUtils
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.ml.feature.{CountVectorizer, CountVectorizerModel}

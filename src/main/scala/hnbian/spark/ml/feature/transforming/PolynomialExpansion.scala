@@ -1,7 +1,7 @@
 package hnbian.spark.ml.feature.transforming
+import hnbian.spark.utils.SparkUtils
 import org.apache.spark.ml.feature.PolynomialExpansion
 import org.apache.spark.ml.linalg.Vectors
-import hnbian.spark.SparkUtils
 
 
 object PolynomialExpansion extends App {
