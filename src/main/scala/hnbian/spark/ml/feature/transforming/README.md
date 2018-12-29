@@ -1,4 +1,4 @@
-#特征转换算法说明文档链接
+#特征转换算法说明文档链接  
 [Tokenizer（分词器）](http://www.sydneyu.com/?p=1044#1_Tokenizer)  
 [StopWordsRemover(停用词移除)](http://www.sydneyu.com/?p=1044#2_StopWordsRemover)  	  
 [n-gram](http://www.sydneyu.com/?p=1044#3_n-gram)  
