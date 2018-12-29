@@ -12,7 +12,7 @@ import org.apache.spark.sql.types.StructType
 
 /**
   * @author hnbian
-  *         @ Description 特征选择 向量机代码示例
+  *         @ Description 特征选择 向量机代码示例 【转换器】
   *         @ Date 2018/12/29 9:52
   **/
 object VectorSlicer extends App {
