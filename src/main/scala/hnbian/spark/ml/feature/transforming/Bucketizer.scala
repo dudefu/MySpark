@@ -37,7 +37,7 @@ object Bucketizer extends App {
 
   val splits = Array(0,18,35,55,Double.PositiveInfinity)
 
-  //定义评估器 并设置splits
+  //定义转换器 并设置splits
   val bucketizer  = new Bucketizer()
     .setInputCol("age")
     .setOutputCol("age_stage")
