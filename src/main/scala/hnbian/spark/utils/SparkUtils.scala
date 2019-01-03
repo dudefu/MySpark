@@ -17,6 +17,7 @@ object SparkUtils {
     conf.setMaster(s"local[${workers}]")
     //创建sparkContext文件
     val sc = new SparkContext(conf)
+    sc.setLogLevel("Error")
     SparkSession.builder().getOrCreate()
   }
 }
