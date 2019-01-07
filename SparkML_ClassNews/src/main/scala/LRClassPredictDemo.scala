@@ -1,8 +1,4 @@
-import hnbian.spark.algorithms.classification.classnews.LRClassifier
-import hnbian.spark.algorithms.classification.classnews.preprocess.Preprocessor
-import hnbian.spark.algorithms.classification.classnews.utils.Evaluations
 import org.apache.spark.sql.Row
-import utils.SparkUtils
 
 /**
   * @author hnbian
@@ -12,8 +8,8 @@ import utils.SparkUtils
 object LRClassPredictDemo extends App {
 
   val filePath = System.getProperty("user.dir") + "/SparkML/src/main/resources/data/classnews/train/*"
-  val spark = SparkUtils.getSparkSession("LogisticRegressionDemo", 4)
-  //val spark = SparkUtils.getSparkSession("LRClassPredictDemo", 4)
+  val spark = SparkUtils.getSparkSession("LRClassPredictDemo", 4)
+
   //=== 预处理(清洗、分词、向量化)
   val preprocessor = new Preprocessor
   val (predictDF, indexModel, _) = preprocessor.predict(filePath, spark)

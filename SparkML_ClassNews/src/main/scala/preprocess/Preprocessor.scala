@@ -2,7 +2,7 @@ package hnbian.spark.algorithms.classification.classnews.preprocess
 
 import java.io.File
 
-import hnbian.lr.utils.IOUtils
+import utils.IOUtils
 import hnbian.spark.algorithms.classification.classnews.params.PreprocessParam
 import org.apache.spark.ml.feature._
 import org.apache.spark.ml.util.Identifiable

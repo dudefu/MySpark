@@ -1,6 +1,7 @@
-import hnbian.spark.algorithms.classification.classnews.LRClassifier
-import hnbian.spark.algorithms.classification.classnews.preprocess.Preprocessor
-import utils.SparkUtils
+
+
+
+
 
 /**
   * @author hnbian
@@ -12,7 +13,7 @@ object LogisticRegressionDemo extends App {
 
   val spark = SparkUtils.getSparkSession("LogisticRegressionDemo", 4)
   //获得数据路径地址 windows 运行时后面需要加*号 不然会报错
-  val filePath = System.getProperty("user.dir") + "/SparkML/src/main/resources/data/classnews/train/*"
+  val filePath = System.getProperty("user.dir") + "/SparkML/ClassNews/src/main/resources/data/classnews/train/*"
   println(filePath)
   val p = new Preprocessor()
   val textDF = p.clean(filePath, spark)

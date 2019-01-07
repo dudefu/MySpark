@@ -1,11 +1,5 @@
-package hnbian.spark.algorithms.classification.classnews
-
 import java.io.File
 
-import hnbian.lr.utils.IOUtils
-import hnbian.spark.algorithms.classification.classnews.params.ClassParam
-import org.apache.spark.ml.classification.{LogisticRegression, LogisticRegressionModel}
-import org.apache.spark.ml.feature.{IndexToString, StringIndexerModel}
 import org.apache.spark.sql.DataFrame
 
 

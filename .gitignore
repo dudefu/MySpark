@@ -41,4 +41,4 @@ metastore_db/
 *.tar.gz
 *.rar
 # 忽略hanlp 模型库文件
-SparkML/ClassNews/dictionaries/hanlp/data/*
+SparkML_ClassNews/dictionaries/hanlp/data/*
