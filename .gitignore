@@ -40,4 +40,5 @@ metastore_db/
 *.zip
 *.tar.gz
 *.rar
+# 忽略hanlp 模型库文件
 SparkML/dictionaries/hanlp/data/*
