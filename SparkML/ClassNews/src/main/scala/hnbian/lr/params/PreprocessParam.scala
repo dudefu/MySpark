@@ -1,5 +1,7 @@
-package hnbian.spark.algorithms.classification.classnews
-import hnbian.spark.algorithms.classification.classnews.Conf
+package hnbian.spark.algorithms.classification.classnews.params
+
+import hnbian.spark.algorithms.classification.classnews.utils.Conf
+
 import scala.collection.mutable
 
 

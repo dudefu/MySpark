@@ -1,7 +1,8 @@
-package hnbian.spark.ml.algorithms.classification
+package hnbian.spark.algorithms.classification
 
 import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
+import utils.{FileUtils, SparkUtils}
 
 /**
   * @author hnbian
@@ -9,11 +10,7 @@ import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
   *         @ Date 2019/1/3 17:53
   **/
 object LogisticRegressionMulticlass extends App {
-
-  import utils.SparkUtils
   val spark = SparkUtils.getSparkSession("LogisticRegressionMulticlass",4)
-
-  import utils.FileUtils
   val  filePath = FileUtils.getFilePath("sample_multiclass_classification_data.txt")
 
   val training = spark

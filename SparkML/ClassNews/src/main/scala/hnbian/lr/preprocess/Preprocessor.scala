@@ -1,8 +1,11 @@
-package hnbian.spark.algorithms.classification.classnews
+package hnbian.spark.algorithms.classification.classnews.preprocess
 
+import java.io.File
 
-import com.hankcs.hanlp.tokenizer.lexical.Segmenter
-import org.apache.spark.ml.feature.{CountVectorizerModel, StopWordsRemover, StringIndexer, StringIndexerModel}
+import hnbian.lr.utils.IOUtils
+import hnbian.spark.algorithms.classification.classnews.params.PreprocessParam
+import org.apache.spark.ml.feature._
+import org.apache.spark.ml.util.Identifiable
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 
@@ -123,12 +126,101 @@ class Preprocessor extends Serializable {
     //=== 去除停用词
     val stopwordArray = spark.sparkContext.textFile(params.stopwordFilePath).collect()
     val remover = new StopWordsRemover()
-      .setStopWords(stopwordArray)
+      .setStopWords(stopwordArray) //这是停用词集合
       .setInputCol(segmenter.getOutputCol)
       .setOutputCol("removed")
     val removedDF = remover.transform(segDF)
 
     removedDF
+  }
+
+  /**
+    * 向量化过程, 包括词汇表过滤
+    *
+    * @param data   输入数据
+    * @param params 配置参数
+    * @return 向量模型
+    */
+  def vectorize(data: DataFrame, params: PreprocessParam): CountVectorizerModel = {
+    //=== 向量化
+    val vectorizer = new CountVectorizer()
+      .setVocabSize(params.vocabSize)
+      .setInputCol("removed")
+      .setOutputCol("features")
+    val parentVecModel = vectorizer.fit(data)
+
+    //过滤词汇表
+    val numPattern = "[0-9]+".r
+    val vocabulary = parentVecModel.vocabulary.flatMap { term =>
+      if (term.length == 1 || term.matches(numPattern.regex)) None else Some(term)
+    }
+
+    val vecModel = new CountVectorizerModel(Identifiable.randomUID("cntVec"), vocabulary)
+      .setInputCol("removed")
+      .setOutputCol("features")
+
+    //返回转换器模型
+    vecModel
+  }
+
+  /**
+    * 保存模型
+    *
+    * @param indexModel 标签索引模型
+    * @param vecModel 向量模型
+    * @param params   配置参数
+    */
+  def saveModel(indexModel: StringIndexerModel, vecModel: CountVectorizerModel, params: PreprocessParam): Unit = {
+    val indexModelPath = params.indexModelPath
+    val vecModelPath = params.vecModelPath
+
+    val indexModelFile = new File(indexModelPath)
+    val vecModelFile = new File(vecModelPath)
+
+
+    if (indexModelFile.exists()) {
+      println("索引模型已存在，新模型将覆盖原有模型...")
+      IOUtils.delDir(indexModelFile)
+    }
+    if (vecModelFile.exists()) {
+      println("向量模型已存在，新模型将覆盖原有模型...")
+      IOUtils.delDir(vecModelFile)
+    }
+
+    indexModel.save(indexModelPath)
+    vecModel.save(vecModelPath)
+    println("预处理模型已保存！")
+  }
+
+
+  /**
+    * 加载模型
+    *
+    * @param params 配置参数
+    * @return LR模型
+    */
+  def loadModel(params: PreprocessParam): (StringIndexerModel, CountVectorizerModel) = {
+    val indexModelPath = params.indexModelPath
+    val vecModelPath = params.vecModelPath
+
+    val indexModelFile = new File(indexModelPath)
+    val vecModelFile = new File(vecModelPath)
+
+    if (!indexModelFile.exists()) {
+      println("索引模型不存在，即将退出！")
+      System.exit(1)
+    } else if (!vecModelFile.exists()) {
+      println("向量模型不存在，即将退出！")
+      System.exit(1)
+    } else {
+      println("开始加载预处理模型...")
+    }
+
+    val indexModel = StringIndexerModel.load(indexModelPath)
+    val vecModel = CountVectorizerModel.load(vecModelPath)
+    println("预处理模型加载成功！")
+
+    (indexModel, vecModel)
   }
 
 }

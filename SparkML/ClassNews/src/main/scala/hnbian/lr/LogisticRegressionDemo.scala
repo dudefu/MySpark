@@ -1,8 +1,6 @@
-package hnbian.spark.ml.algorithms.classification.classnews
-
-import hnbian.spark.algorithms.classification.classnews.Preprocessor
+import hnbian.spark.algorithms.classification.classnews.LRClassifier
+import hnbian.spark.algorithms.classification.classnews.preprocess.Preprocessor
 import utils.SparkUtils
-
 
 /**
   * @author hnbian
@@ -11,7 +9,6 @@ import utils.SparkUtils
   **/
 object LogisticRegressionDemo extends App {
 
-  val files = Array("culture.txt", "", "", "")
 
   val spark = SparkUtils.getSparkSession("LogisticRegressionDemo", 4)
   //获得数据路径地址 windows 运行时后面需要加*号 不然会报错
@@ -20,4 +17,14 @@ object LogisticRegressionDemo extends App {
   val p = new Preprocessor()
   val textDF = p.clean(filePath, spark)
   val model = p.indexrize(textDF)
+
+  //=== 预处理(清洗、标签索引化、分词、向量化)
+  val preprocessor = new Preprocessor
+  val trainDF = preprocessor.predict(filePath, spark)._1
+
+  //=== 模型训练
+  val lrClassifier = new LRClassifier
+  lrClassifier.train(trainDF)
+
+  spark.stop()
 }

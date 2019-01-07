@@ -1,4 +1,4 @@
-package hnbian.spark.algorithms.classification.classnews
+package hnbian.spark.algorithms.classification.classnews.utils
 
 import java.io.{File, FileInputStream, InputStreamReader}
 import java.util.Properties
