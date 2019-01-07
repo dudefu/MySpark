@@ -1,8 +1,9 @@
 package hnbian.spark.ml.algorithms.classification
 
-import utils.{FileUtils, SparkUtils}
+
 import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
+import utils.{FileUtils, SparkUtils}
 
 /**
   * @author hnbian

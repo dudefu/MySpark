@@ -1,9 +1,10 @@
 package hnbian.spark.algorithms.classification.classnews
 
+
 import com.hankcs.hanlp.tokenizer.lexical.Segmenter
-import org.apache.spark.ml.feature.{CountVectorizerModel, StringIndexer, StringIndexerModel}
+import org.apache.spark.ml.feature.{CountVectorizerModel, StopWordsRemover, StringIndexer, StringIndexerModel}
 import org.apache.spark.sql.{DataFrame, SparkSession}
-import params.PreprocessParam
+
 
 /**
   * @author hnbian
