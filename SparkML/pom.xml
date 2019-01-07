@@ -11,9 +11,6 @@
 
     <artifactId>SparkML</artifactId>
     <packaging>pom</packaging>
-    <modules>
-        <module>ClassNews</module>
-    </modules>
 
     <dependencies>
         <!--添加spark机器学习依赖-->
