@@ -12,6 +12,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 object SparkUtils {
 
   def getSparkSession(appName:String,workers:Int): SparkSession ={
+    System.setProperty("hadoop.home.dir", "D:\\ProgramFiles\\winutils-master\\hadoop-2.7.1")
     val conf = new SparkConf().setAppName(appName)
     //设置master local[worker] 指定本地模式开启模拟worker线程数
     conf.setMaster(s"local[${workers}]")

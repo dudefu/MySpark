@@ -133,6 +133,8 @@ class Segmenter(val uid: String) extends Serializable {
     import spark.implicits._
     val tokensSet = tokens.toDF(inputCol + "#1", outputCol)
 
+    //DataFrame的join操作将原DataFrame与分词后的DataFrame进行了连接，
+    // 与spark使用的schemaType元数据推断DataFrame结构的方式不同。
     dataset.join(tokensSet, dataset(inputCol) === tokensSet(inputCol + "#1")).drop(inputCol + "#1")
   }
 }

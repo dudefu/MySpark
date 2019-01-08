@@ -12,7 +12,8 @@ import scala.collection.mutable
   **/
 class PreprocessParam extends Serializable {
 
-  val kvMap: mutable.LinkedHashMap[String, String] = Conf.loadConf("src/main/resources/preprocess.properties")
+  //val kvMap: mutable.LinkedHashMap[String, String] = Conf.loadConf("src/main/resources/preprocess.properties")
+  val kvMap: mutable.LinkedHashMap[String, String] = Conf.loadConf("preprocess.properties")
 
   val stopwordFilePath: String = kvMap.getOrElse("stopword.file.path", "dictionaries/hanlp/data/dictionary/stopwords.txt")    //停用词表路径
   val segmentType: String = kvMap.getOrElse("segment.type", "StandardSegment")    //分词方式

@@ -42,3 +42,6 @@ metastore_db/
 *.rar
 # 忽略hanlp 模型库文件
 SparkML_ClassNews/dictionaries/hanlp/data/*
+SparkML_ClassNews/models/*
+# 忽略测试文件夹
+*/src/test/*

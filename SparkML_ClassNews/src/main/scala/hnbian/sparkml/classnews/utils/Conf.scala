@@ -22,7 +22,12 @@ object Conf extends Serializable {
     val kvMap = mutable.LinkedHashMap[String, String]()
 
     val properties = new Properties()
-    properties.load(new InputStreamReader(new FileInputStream(filePath), "UTF-8"))
+
+    properties.load(new InputStreamReader(Conf.getClass.getClassLoader.getResourceAsStream(filePath), "UTF-8"))
+
+
+
+    //properties.load(new InputStreamReader(new FileInputStream(filePath), "UTF-8"))
     val propertyNameArray = properties.stringPropertyNames().toArray(new Array[String](0))
 
     val fileName = new File(filePath).getName

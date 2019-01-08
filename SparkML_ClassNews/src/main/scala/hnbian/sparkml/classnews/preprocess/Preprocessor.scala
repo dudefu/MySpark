@@ -25,8 +25,21 @@ class Preprocessor extends Serializable {
     *         数据包括字段: "label", "indexedLabel", "title", "time", "content", "tokens", "removed", "features"
     */
   def train(filePath: String, spark: SparkSession): (DataFrame, StringIndexerModel, CountVectorizerModel) = {
+    val params = new PreprocessParam
 
-    null
+    val cleanDF = this.clean(filePath, spark) //清洗数据
+    val indexModel = this.indexrize(cleanDF)
+    val indexDF = indexModel.transform(cleanDF) //标签索引化
+    indexDF.show(false)
+    //分词、移除停用词
+    val segDF = this.segment(indexDF, params) //分词
+    segDF.show(false)
+    //向量化过程, 包括词汇表过滤
+    val vecModel = this.vectorize(segDF, params)
+    val trainDF = vecModel.transform(segDF) //向量化
+    this.saveModel(indexModel, vecModel, params) //保存模型
+    trainDF.show(false)
+    (trainDF, indexModel, vecModel)
   }
 
   /**
@@ -39,7 +52,21 @@ class Preprocessor extends Serializable {
     */
   def predict(filePath: String, spark: SparkSession): (DataFrame, StringIndexerModel, CountVectorizerModel) = {
 
-    null
+    val params = new PreprocessParam
+
+    //清洗数据
+    val cleanDF = this.clean(filePath, spark)
+    //标签索引模型
+    val (indexModel, vecModel) = this.loadModel(params)
+    val indexDF = indexModel.transform(cleanDF)
+    indexDF.show()
+    //分词过程，包括"分词", "去除停用词"
+    val segDF = this.segment(indexDF, params)
+    segDF.show()
+
+    val predictDF = vecModel.transform(segDF)
+    predictDF.show()
+    (predictDF, indexModel, vecModel)
   }
 
   /**
@@ -58,7 +85,7 @@ class Preprocessor extends Serializable {
       //分隔数据
       val fields = line.split("\u00EF")
 
-      if (fields.length > 3) {
+      if (null != fields && fields.length > 3) {
         val categoryLine = fields(0)
         val categories = categoryLine.split("\\|")
         val category = categories.last
@@ -71,7 +98,6 @@ class Preprocessor extends Serializable {
         else {}
 
         val (title, time, content) = (fields(1), fields(2), fields(3))
-        //println(s"title=${title},title=${time},content=${content}")
         if (!label.equals("其他")) {
           Some(label, title, time, content)
         } else {
@@ -80,12 +106,12 @@ class Preprocessor extends Serializable {
       } else None
     }.toDF("label", "title", "time", "content")
 
-    textDF.show()
     textDF
   }
 
   /**
-    * 将字符串label转换为索引形式
+    * 将数据中的中文标签转换为索引形式输出
+    *
     * @param data 输入数据
     * @return 标签索引模型, 模型增加字段: "indexedLabel"
     */
@@ -111,12 +137,12 @@ class Preprocessor extends Serializable {
 
     //=== 分词
     val segmenter = new Segmenter()
-      .isDelEn(params.delEn)
-      .isDelNum(params.delNum)
-      .setSegmentType(params.segmentType)
-      .addNature(params.addNature)
-      .setMinTermLen(params.minTermLen)
-      .setMinTermNum(params.minTermNum)
+      .isDelEn(params.delEn) //是否去除英语单词
+      .isDelNum(params.delNum) //是否去除数字
+      .setSegmentType(params.segmentType) //分词方式
+      .addNature(params.addNature) //是否添加词性
+      .setMinTermLen(params.minTermLen) //最小词长度
+      .setMinTermNum(params.minTermNum) //行最小词数
       .setInputCol("content")
       .setOutputCol("tokens")
 
@@ -144,7 +170,7 @@ class Preprocessor extends Serializable {
   def vectorize(data: DataFrame, params: PreprocessParam): CountVectorizerModel = {
     //=== 向量化
     val vectorizer = new CountVectorizer()
-      .setVocabSize(params.vocabSize)
+      .setVocabSize(params.vocabSize) //特征词汇表大小
       .setInputCol("removed")
       .setOutputCol("features")
     val parentVecModel = vectorizer.fit(data)
@@ -167,8 +193,8 @@ class Preprocessor extends Serializable {
     * 保存模型
     *
     * @param indexModel 标签索引模型
-    * @param vecModel 向量模型
-    * @param params   配置参数
+    * @param vecModel   向量模型
+    * @param params     配置参数
     */
   def saveModel(indexModel: StringIndexerModel, vecModel: CountVectorizerModel, params: PreprocessParam): Unit = {
     val indexModelPath = params.indexModelPath

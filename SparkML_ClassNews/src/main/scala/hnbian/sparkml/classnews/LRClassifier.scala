@@ -1,7 +1,7 @@
 package hnbian.sparkml.classnews
 import java.io.File
 
-import hnbian.lr.utils.params.ClassParam
+
 import hnbian.sparkml.classnews.params.ClassParam
 import hnbian.sparkml.classnews.utils.IOUtils
 import org.apache.spark.ml.classification.{LogisticRegression, LogisticRegressionModel}

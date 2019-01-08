@@ -11,8 +11,8 @@ import scala.collection.mutable
   * @ Date 2019/1/7 15:59
   **/
 class ClassParam  extends Serializable {
-  val kvMap: mutable.LinkedHashMap[String, String] = Conf.loadConf("src/main/resources/classification.properties")
-
+  //val kvMap: mutable.LinkedHashMap[String, String] = Conf.loadConf("src/main/resources/classification.properties")
+  val kvMap: mutable.LinkedHashMap[String, String] = Conf.loadConf("classification.properties")
   val maxIteration: Int = kvMap.getOrElse("max.iteration", "80").toInt    //模型最大迭代次数
   val regParam: Double = kvMap.getOrElse("reg.param", "0.3").toDouble   //正则化项参数
   val elasticNetParam: Double = kvMap.getOrElse("elastic.net.param", "0.1").toDouble   //L1范式比例, L1/(L1 + L2)

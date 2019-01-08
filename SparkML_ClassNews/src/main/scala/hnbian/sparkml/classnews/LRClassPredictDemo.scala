@@ -15,7 +15,7 @@ import hnbian.sparkml.classnews.utils.Evaluations
   **/
 object LRClassPredictDemo extends App {
 
-  val filePath = System.getProperty("user.dir") + "/SparkML/src/main/resources/data/classnews/train/*"
+  val filePath = System.getProperty("user.dir") + "/SparkML_ClassNews/src/main/resources/train/*"
   val spark = SparkUtils.getSparkSession("LRClassPredictDemo", 4)
 
   //=== 预处理(清洗、分词、向量化)
