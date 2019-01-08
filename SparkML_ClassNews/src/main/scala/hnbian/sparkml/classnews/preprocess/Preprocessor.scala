@@ -30,15 +30,15 @@ class Preprocessor extends Serializable {
     val cleanDF = this.clean(filePath, spark) //清洗数据
     val indexModel = this.indexrize(cleanDF)
     val indexDF = indexModel.transform(cleanDF) //标签索引化
-    indexDF.show(false)
+    //indexDF.show(false)
     //分词、移除停用词
     val segDF = this.segment(indexDF, params) //分词
-    segDF.show(false)
+    //segDF.show(false)
     //向量化过程, 包括词汇表过滤
     val vecModel = this.vectorize(segDF, params)
     val trainDF = vecModel.transform(segDF) //向量化
     this.saveModel(indexModel, vecModel, params) //保存模型
-    trainDF.show(false)
+    //trainDF.show(false)
     (trainDF, indexModel, vecModel)
   }
 
@@ -59,13 +59,13 @@ class Preprocessor extends Serializable {
     //标签索引模型
     val (indexModel, vecModel) = this.loadModel(params)
     val indexDF = indexModel.transform(cleanDF)
-    indexDF.show()
+    //indexDF.show()
     //分词过程，包括"分词", "去除停用词"
     val segDF = this.segment(indexDF, params)
-    segDF.show()
+    //segDF.show()
 
     val predictDF = vecModel.transform(segDF)
-    predictDF.show()
+    //predictDF.show()
     (predictDF, indexModel, vecModel)
   }
 
@@ -186,6 +186,7 @@ class Preprocessor extends Serializable {
       .setOutputCol("features")
 
     //返回转换器模型
+    vecModel.transform(data).select("label","indexedLabel","features").show(false)
     vecModel
   }
 

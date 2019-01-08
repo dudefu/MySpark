@@ -27,16 +27,16 @@ class LRClassifier {
     //=== LR分类模型训练
     data.persist()
     val lrModel = new LogisticRegression()
-      .setMaxIter(params.maxIteration)
-      .setRegParam(params.regParam)
-      .setElasticNetParam(params.elasticNetParam)
-      .setTol(params.converTol)
+      .setMaxIter(params.maxIteration)  //模型最大迭代次数
+      .setRegParam(params.regParam) //正则化项参数
+      .setElasticNetParam(params.elasticNetParam) //L1范式比例, L1/(L1 + L2)
+      .setTol(params.converTol) //模型收敛阈值
       .setLabelCol("indexedLabel")
       .setFeaturesCol("features")
       .fit(data)
     data.unpersist()
     this.saveModel(lrModel, params)
-
+    lrModel.transform(data).select("label","prediction","probability").show(false)
     lrModel
   }
 
