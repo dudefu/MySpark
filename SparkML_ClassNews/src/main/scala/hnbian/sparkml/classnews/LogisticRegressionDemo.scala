@@ -20,8 +20,8 @@ object LogisticRegressionDemo extends App {
   println(filePath)
 
   //训练模型
-  val preprocessor = new Preprocessor
-  val trainDF = preprocessor.train(filePath, spark)
+  /*val preprocessor = new Preprocessor
+  val trainDF = preprocessor.train(filePath, spark)*/
 
 /*
   val textRDD = spark.sparkContext.textFile(filePath)
@@ -31,12 +31,12 @@ object LogisticRegressionDemo extends App {
   val model = p.indexrize(textDF)*/
 
   //=== 预处理(清洗、标签索引化、分词、向量化)
-  /*val preprocessor = new Preprocessor
-  val trainDF = preprocessor.predict(filePath, spark)._1*/
+  val preprocessor = new Preprocessor
+  val trainDF = preprocessor.predict(filePath, spark)._1
 
   //=== 模型训练
-  /*val lrClassifier = new LRClassifier
-  lrClassifier.train(trainDF)*/
+  val lrClassifier = new LRClassifier
+  lrClassifier.train(trainDF)
 
   spark.stop()
 }

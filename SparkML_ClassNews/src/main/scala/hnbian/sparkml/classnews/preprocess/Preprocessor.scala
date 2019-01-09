@@ -56,16 +56,14 @@ class Preprocessor extends Serializable {
 
     //清洗数据
     val cleanDF = this.clean(filePath, spark)
+
     //标签索引模型
     val (indexModel, vecModel) = this.loadModel(params)
     val indexDF = indexModel.transform(cleanDF)
-    //indexDF.show()
+
     //分词过程，包括"分词", "去除停用词"
     val segDF = this.segment(indexDF, params)
-    //segDF.show()
-
     val predictDF = vecModel.transform(segDF)
-    //predictDF.show()
     (predictDF, indexModel, vecModel)
   }
 
@@ -175,9 +173,10 @@ class Preprocessor extends Serializable {
       .setOutputCol("features")
     val parentVecModel = vectorizer.fit(data)
 
-    //过滤词汇表
+    //过滤词汇表过
     val numPattern = "[0-9]+".r
     val vocabulary = parentVecModel.vocabulary.flatMap { term =>
+      //  1. 滤长度为1的词           2. 过滤数字
       if (term.length == 1 || term.matches(numPattern.regex)) None else Some(term)
     }
 

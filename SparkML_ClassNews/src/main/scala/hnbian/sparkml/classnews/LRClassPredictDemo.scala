@@ -1,8 +1,5 @@
 package hnbian.sparkml.classnews
 
-
-
-import org.apache.spark.sql.Row
 import hnbian.spark.utils.SparkUtils
 import hnbian.sparkml.classnews.preprocess.Preprocessor
 import hnbian.sparkml.classnews.utils.Evaluations
@@ -10,7 +7,7 @@ import hnbian.sparkml.classnews.utils.Evaluations
 
 /**
   * @author hnbian
-  *         @ Description
+  *         @ Description  数据预测与评估
   *         @ Date 2019/1/7 16:06
   **/
 object LRClassPredictDemo extends App {
@@ -26,15 +23,14 @@ object LRClassPredictDemo extends App {
   val lrClassifier = new LRClassifier
   val predictions = lrClassifier.predict(predictDF, indexModel)
 
-  //=== 模型评估
-  val resultRDD = predictions.select("prediction", "indexedLabel").rdd.map { case Row(prediction: Double, label: Double) => (prediction, label) }
-  val (precision, recall, f1) = Evaluations.multiClassEvaluate(resultRDD)
+  val (accuracy,precision, recall, f1) = Evaluations.multiClassEvaluate(predictions)
   println("\n\n========= 评估结果 ==========")
-  println(s"\n加权准确率：$precision")
+  println(s"\n准确率：$accuracy")
+  println(s"加权精确率：$precision")
   println(s"加权召回率：$recall")
   println(s"F1值：$f1")
 
-  predictions.select("label", "predictedLabel", "content").show(100, truncate = false)
+  predictions.select("indexedLabel","prediction","probability").show(5, truncate = false)
 
   spark.stop()
 }

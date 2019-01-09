@@ -60,7 +60,6 @@ class LRClassifier {
       .setOutputCol("predictedLabel")
       .setLabels(indexModel.labels)
     val result = labelConverter.transform(predictions)
-
     result
   }
 
