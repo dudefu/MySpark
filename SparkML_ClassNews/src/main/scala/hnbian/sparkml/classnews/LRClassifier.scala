@@ -21,7 +21,7 @@ class LRClassifier {
   * @param data   训练集
   * @return (向量模型, LR模型)
   */
-  def train(data: DataFrame): LogisticRegressionModel = {
+  def train(data: DataFrame): DataFrame = {
     val params = new ClassParam
 
     //=== LR分类模型训练
@@ -36,8 +36,11 @@ class LRClassifier {
       .fit(data)
     data.unpersist()
     this.saveModel(lrModel, params)
-    lrModel.transform(data).select("label","prediction","probability").show(false)
-    lrModel
+    val predictions = lrModel.transform(data)
+
+    //predictions.select("label","prediction","probability").show(false)
+
+    predictions
   }
 
 
@@ -51,16 +54,20 @@ class LRClassifier {
     val params = new ClassParam
     val lrModel = this.loadModel(params)
 
+    //先持久化
+    data.persist()
     //=== LR预测
     val predictions = lrModel.transform(data)
+    //移除持久化的数据
+    data.unpersist()
 
     //=== 索引转换为label
     val labelConverter = new IndexToString()
       .setInputCol("prediction")
       .setOutputCol("predictedLabel")
       .setLabels(indexModel.labels)
-    val result = labelConverter.transform(predictions)
-    result
+    val predictionsResult = labelConverter.transform(predictions)
+    predictionsResult
   }
 
 

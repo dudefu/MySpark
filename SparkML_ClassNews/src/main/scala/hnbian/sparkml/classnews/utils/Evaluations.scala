@@ -1,7 +1,6 @@
 package hnbian.sparkml.classnews.utils
 
-import hnbian.sparkml.classnews.LRClassPredictDemo.predictions
-import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
+
 import org.apache.spark.mllib.evaluation.MulticlassMetrics
 import org.apache.spark.sql.{DataFrame, Row}
 
@@ -21,7 +20,7 @@ object Evaluations {
   def multiClassEvaluate(data: DataFrame): (Double, Double, Double, Double) = {
 
     val metrics = new MulticlassMetrics(
-      predictions.select("prediction", "indexedLabel")
+      data.select("prediction", "indexedLabel")
         .rdd.map {
         case Row(prediction: Double, label: Double) => (prediction, label)
       }

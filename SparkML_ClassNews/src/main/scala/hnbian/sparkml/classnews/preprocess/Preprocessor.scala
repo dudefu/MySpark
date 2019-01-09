@@ -19,26 +19,25 @@ class Preprocessor extends Serializable {
   /**
     * 训练数据的预处理方法
     *
-    * @param filePath 数据路径
     * @param spark    sparkSession
     * @return （预处理后的数据, 索引模型, 向量模型),
     *         数据包括字段: "label", "indexedLabel", "title", "time", "content", "tokens", "removed", "features"
     */
-  def train(filePath: String, spark: SparkSession): (DataFrame, StringIndexerModel, CountVectorizerModel) = {
+  def train( spark: SparkSession): (DataFrame, StringIndexerModel, CountVectorizerModel) = {
     val params = new PreprocessParam
-
+    val filePath = s"${System.getProperty("user.dir") }${params.dataTrainPath}"
     val cleanDF = this.clean(filePath, spark) //清洗数据
     val indexModel = this.indexrize(cleanDF)
     val indexDF = indexModel.transform(cleanDF) //标签索引化
-    //indexDF.show(false)
     //分词、移除停用词
     val segDF = this.segment(indexDF, params) //分词
-    //segDF.show(false)
     //向量化过程, 包括词汇表过滤
     val vecModel = this.vectorize(segDF, params)
     val trainDF = vecModel.transform(segDF) //向量化
-    this.saveModel(indexModel, vecModel, params) //保存模型
-    //trainDF.show(false)
+    /**
+      * 保存预处理模型
+      */
+    this.saveModel(indexModel, vecModel, params)
     (trainDF, indexModel, vecModel)
   }
 
@@ -50,9 +49,10 @@ class Preprocessor extends Serializable {
     * @return （预处理后的数据, 索引模型, 向量模型),
     *         数据包括字段: "label", "indexedLabel", "title", "time", "content", "tokens", "removed", "features"
     */
-  def predict(filePath: String, spark: SparkSession): (DataFrame, StringIndexerModel, CountVectorizerModel) = {
+  def predict( spark: SparkSession): (DataFrame, StringIndexerModel, CountVectorizerModel) = {
 
     val params = new PreprocessParam
+    val filePath = s"${System.getProperty("user.dir") }${params.dataPredictPath}"
 
     //清洗数据
     val cleanDF = this.clean(filePath, spark)
@@ -190,7 +190,7 @@ class Preprocessor extends Serializable {
   }
 
   /**
-    * 保存模型
+    * 保存预处理模型
     *
     * @param indexModel 标签索引模型
     * @param vecModel   向量模型
@@ -220,7 +220,7 @@ class Preprocessor extends Serializable {
 
 
   /**
-    * 加载模型
+    * 加载预处理模型
     *
     * @param params 配置参数
     * @return LR模型

@@ -2,6 +2,9 @@ package hnbian.sparkml.classnews.utils
 
 import java.io.File
 
+import org.apache.spark.ml.classification.LogisticRegressionModel
+import org.apache.spark.ml.util.MLWritable
+
 
 /**
   * @author hnbian

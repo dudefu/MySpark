@@ -26,4 +26,10 @@ class PreprocessParam extends Serializable {
 
   val indexModelPath: String = kvMap.getOrElse("model.index.path", "models/preprocession/indexModel")    //索引模型保存路径
   val vecModelPath: String = kvMap.getOrElse("model.vectorize.path", "models/preprocession/vecModel")   //向量模型保存路径
+
+  /**训练数据保存路径*/
+  val dataTrainPath: String = kvMap.getOrElse("data.train.path", "/SparkML_ClassNews/src/main/resources/train/*")
+
+  /**预测数据保存路径*/
+  val dataPredictPath: String = kvMap.getOrElse("data.predict.path", "/SparkML_ClassNews/src/main/resources/predict/*")
 }
