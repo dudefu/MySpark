@@ -1,5 +1,4 @@
-package hnbian.sparkml.classnews.utils
-
+package hnbian.sparkml.utils
 
 import org.apache.spark.mllib.evaluation.MulticlassMetrics
 import org.apache.spark.sql.{DataFrame, Row}
