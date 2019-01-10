@@ -2,7 +2,7 @@ package hnbian.sparkml.classnews
 
 import hnbian.spark.utils.SparkUtils
 import hnbian.sparkml.classnews.preprocess.Preprocessor
-import hnbian.sparkml.classnews.utils.Evaluations
+import hnbian.sparkml.utils.Evaluations
 import org.apache.spark.sql.DataFrame
 
 
