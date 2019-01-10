@@ -101,33 +101,32 @@ object DecisionTree extends App {
   // 查看决策树
   println("Learned classification tree model:\n" + treeModelClassifier.toDebugString)
   /**
-  DecisionTreeClassificationModel (uid=dtc_24f632ec622a) of depth 5 with 15 nodes
-  If (feature 2 <= 2.5999999999999996)
-   Predict: 2.0
-  Else (feature 2 > 2.5999999999999996)
-   If (feature 2 <= 5.05)
-    If (feature 3 <= 1.65)
-     Predict: 0.0
-    Else (feature 3 > 1.65)
-     If (feature 0 <= 6.05)
-      If (feature 1 <= 3.05)
-       Predict: 1.0
-      Else (feature 1 > 3.05)
-       Predict: 0.0
-     Else (feature 0 > 6.05)
-      Predict: 0.0
-   Else (feature 2 > 5.05)
-    If (feature 3 <= 1.65)
-     If (feature 0 <= 6.05)
-      Predict: 0.0
-     Else (feature 0 > 6.05)
-      Predict: 1.0
-    Else (feature 3 > 1.65)
-     Predict: 1.0
+    * DecisionTreeClassificationModel (uid=dtc_24f632ec622a) of depth 5 with 15 nodes
+    * If (feature 2 <= 2.5999999999999996)
+    * Predict: 2.0
+    * Else (feature 2 > 2.5999999999999996)
+    * If (feature 2 <= 5.05)
+    * If (feature 3 <= 1.65)
+    * Predict: 0.0
+    * Else (feature 3 > 1.65)
+    * If (feature 0 <= 6.05)
+    * If (feature 1 <= 3.05)
+    * Predict: 1.0
+    * Else (feature 1 > 3.05)
+    * Predict: 0.0
+    * Else (feature 0 > 6.05)
+    * Predict: 0.0
+    * Else (feature 2 > 5.05)
+    * If (feature 3 <= 1.65)
+    * If (feature 0 <= 6.05)
+    * Predict: 0.0
+    * Else (feature 0 > 6.05)
+    * Predict: 1.0
+    * Else (feature 3 > 1.65)
+    * Predict: 1.0
     */
-
-
   spark.stop()
 }
 
 case class Iris(features: org.apache.spark.ml.linalg.Vector, label: String)
+
