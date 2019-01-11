@@ -70,10 +70,10 @@ object MultilayerPerceptronClassifier extends App {
   )
 
   println("\n\n========= 评估结果 ==========")
-  println(s"\n准确率：$metrics.accuracy")
-  println(s"加权精确率：$metrics.weightedPrecision")
-  println(s"加权召回率：$metrics.weightedRecall")
-  println(s"F1值：$metrics.weightedFMeasure")
+  println(s"\n准确率：${metrics.accuracy}")
+  println(s"加权精确率：${metrics.weightedPrecision}")
+  println(s"加权召回率：${metrics.weightedRecall}")
+  println(s"F1值：${metrics.weightedFMeasure}")
   /**
     * 评估结果
     *
