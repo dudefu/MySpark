@@ -1,10 +1,10 @@
 package hnbian.sparkml.algorithms.classification
 
 import hnbian.spark.utils.SparkUtils
-import hnbian.sparkml.utils.Evaluations
 import org.apache.spark.mllib.evaluation.MulticlassMetrics
 import org.apache.spark.sql.Row
 import utils.FileUtils
+import org.apache.spark.ml.classification.MultilayerPerceptronClassifier
 
 /**
   * @author hnbian
@@ -29,11 +29,9 @@ object MultilayerPerceptronClassifier extends App {
     * |  0.0|(4,[0,1,2,3],[0.1...|
     * +-----+--------------------+
     */
-  import org.apache.spark.ml.classification.MultilayerPerceptronClassifier
-
 
   // 将数据拆分为训练和测试
-  val Array(train,test) = data.randomSplit(Array(0.6, 0.4), seed = 1234L)
+  val Array(train, test) = data.randomSplit(Array(0.6, 0.4), seed = 1234L)
 
   /**
     * 为神经网络指定图层：
@@ -71,20 +69,11 @@ object MultilayerPerceptronClassifier extends App {
     }
   )
 
-  /** 准确率 */
-  val accuracy = metrics.accuracy
-  /** 精确率 */
-  val weightedPrecision = metrics.weightedPrecision
-  /** 召回率 */
-  val weightedRecall = metrics.weightedRecall
-  /** F1 */
-  val f1 = metrics.weightedFMeasure
-
   println("\n\n========= 评估结果 ==========")
-  println(s"\n准确率：$accuracy")
-  println(s"加权精确率：$weightedPrecision")
-  println(s"加权召回率：$weightedRecall")
-  println(s"F1值：$f1")
+  println(s"\n准确率：$metrics.accuracy")
+  println(s"加权精确率：$metrics.weightedPrecision")
+  println(s"加权召回率：$metrics.weightedRecall")
+  println(s"F1值：$metrics.weightedFMeasure")
   /**
     * 评估结果
     *
