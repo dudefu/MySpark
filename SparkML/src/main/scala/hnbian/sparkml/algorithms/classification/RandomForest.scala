@@ -4,7 +4,7 @@ import utils.FileUtils
 import hnbian.spark.utils.SparkUtils
 import hnbian.sparkml.utils.Evaluations
 import org.apache.spark.ml.Pipeline
-import org.apache.spark.ml.classification.RandomForestClassifier
+import org.apache.spark.ml.classification.{RandomForestClassificationModel, RandomForestClassifier}
 import org.apache.spark.ml.feature.{IndexToString, StringIndexer, VectorIndexer}
 
 /**
@@ -54,7 +54,7 @@ object RandomForest extends App {
   val rf = new RandomForestClassifier()
     .setLabelCol("indexedLabel")
     .setFeaturesCol("indexedFeatures")
-    .setNumTrees(3)
+    .setNumTrees(3) //分成3棵树
 
   // 将索引标签转换回原始标签。
   val labelConverter = new IndexToString()
@@ -97,5 +97,40 @@ object RandomForest extends App {
     * 加权精确率：0.9711538461538461
     * 加权召回率：0.96875
     * F1值：0.9689743589743589
+    */
+  val rfModel = model.stages(2).asInstanceOf[RandomForestClassificationModel]
+  println("Learned classification forest model:\n" + rfModel.toDebugString)
+  /**
+    * Learned classification forest model:
+    * RandomForestClassificationModel (uid=rfc_82f005014192) with 3 trees
+    * Tree 0 (weight 1.0):
+    * If (feature 512 <= 8.0)
+    * If (feature 454 <= 12.0)
+    * If (feature 486 <= 212.0)
+    * Predict: 0.0
+    * Else (feature 486 > 212.0)
+    * Predict: 1.0
+    * Else (feature 454 > 12.0)
+    * Predict: 1.0
+    * Else (feature 512 > 8.0)
+    * Predict: 1.0
+    *
+    * Tree 1 (weight 1.0):
+    * If (feature 462 <= 63.0)
+    * If (feature 492 <= 190.5)
+    * Predict: 1.0
+    * Else (feature 492 > 190.5)
+    * Predict: 0.0
+    * Else (feature 462 > 63.0)
+    * Predict: 0.0
+    *
+    * Tree 2 (weight 1.0):
+    * If (feature 524 <= 21.0)
+    * If (feature 429 <= 7.0)
+    * Predict: 0.0
+    * Else (feature 429 > 7.0)
+    * Predict: 1.0
+    * Else (feature 524 > 21.0)
+    * Predict: 1.0
     */
 }
