@@ -7,8 +7,8 @@ import utils.FileUtils
 
 /**
   * @author hnbian
-  *         @ Description 朴素贝叶斯代码示例
-  *         @ Date 2019/1/14 11:00
+  * @ Description 朴素贝叶斯代码示例
+  * @ Date 2019/1/14 11:00
   **/
 object NaiveBayes extends App {
   val spark = SparkUtils.getSparkSession("NaiveBayes", 4)
@@ -30,8 +30,6 @@ object NaiveBayes extends App {
   import org.apache.spark.ml.classification.NaiveBayes
   import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
 
-
-
   // 将数据分成训练和测试集（30％用于测试）
   val Array(trainingData, testData) = data.randomSplit(Array(0.7, 0.3), seed = 1234L)
 
@@ -52,7 +50,6 @@ object NaiveBayes extends App {
     * |  0.0|(692,[100,101,102...|[-100020.80519087...|  [1.0,0.0]|       0.0|
     * +-----+--------------------+--------------------+-----------+----------+
     */
-
 
   //模型评估
   val metrics = new MulticlassMetrics(
