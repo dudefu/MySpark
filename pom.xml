@@ -13,6 +13,7 @@
         <module>SparkML_ClassNews</module>
         <module>SparkSQL</module>
         <module>SparkCore</module>
+        <module>SparkStreaming</module>
     </modules>
 <build>
     <plugins>
