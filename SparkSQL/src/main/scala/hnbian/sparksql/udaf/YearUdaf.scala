@@ -104,12 +104,16 @@ object YearUdaf extends App {
 
   //val dir = "D:/Program/spark/examples/src/main/resources/"
   //System.setProperty("hadoop.home.dir", "D:\\documents\\GitHub\\winutils\\hadoop-2.6.0")
-  val spark = SparkSession.builder()
+  System.setProperty("hadoop.home.dir", "D:\\ProgramFiles\\winutils-master\\hadoop-2.7.1")
+  import hnbian.spark.utils.SparkUtils
+  val spark = SparkUtils.getSparkSession("SparkSession",4)
+  
+  /*val spark = SparkSession.builder()
     .appName(s"test")
     //.master(commonPorp.getProperty("master"))
     .master("local[4]")
     //.enableHiveSupport() //使用hive
-    .getOrCreate()
+    .getOrCreate()*/
 
   //如果定义UDAF(User Defined Aggregate Function)
   //Spark为所有的UDAF定义了一个父类UserDefinedAggregateFunction。要继承这个类，需要实现父类的几个抽象方法
