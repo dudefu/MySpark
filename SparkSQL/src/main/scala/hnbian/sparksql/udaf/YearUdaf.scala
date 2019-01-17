@@ -107,7 +107,7 @@ object YearUdaf extends App {
   System.setProperty("hadoop.home.dir", "D:\\ProgramFiles\\winutils-master\\hadoop-2.7.1")
   import hnbian.spark.utils.SparkUtils
   val spark = SparkUtils.getSparkSession("SparkSession",4)
-  
+
   /*val spark = SparkSession.builder()
     .appName(s"test")
     //.master(commonPorp.getProperty("master"))

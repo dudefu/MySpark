@@ -3,9 +3,7 @@ package hnbian.sparksql.connection
 import java.sql.DriverManager
 
 /**
-  * @author hnbian
-  *         @ Description 
-  *         @ Date 2019/1/15 17:43
+  * @author hnbian 2019/1/15 17:43
   **/
 object SaprkSqlHive extends App {
   //注册驱动
