@@ -12,7 +12,7 @@ import utils.FileUtils
   *         @ Description 决策树分类代码示例
   *         @ Date 2019/1/4 15:30
   **/
-object DecisionTree extends App {
+object DecisionTreeClassifier extends App {
 
   val spark = SparkUtils.getSparkSession("DecisionTree", 4)
 
