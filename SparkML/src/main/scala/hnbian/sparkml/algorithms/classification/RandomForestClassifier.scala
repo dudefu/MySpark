@@ -9,13 +9,13 @@ import org.apache.spark.ml.feature.{IndexToString, StringIndexer, VectorIndexer}
 
 /**
   * @author hnbian
-  * @ Description  随机森林代码示例
+  * @ Description  随机森林分类代码示例
   * @ Date 2019/1/10 16:18
   **/
-object RandomForest extends App {
+object RandomForestClassifier extends App {
 
 
-  val spark = SparkUtils.getSparkSession("RandomForest", 4)
+  val spark = SparkUtils.getSparkSession("RandomForestClassifier", 4)
 
   val filePath = FileUtils.getFilePath("sample_libsvm_data.txt")
 
