@@ -51,7 +51,7 @@ object RandomForestRegressor extends App {
 
   // 训练模型
   val model = pipeline.fit(trainingData)
-  
+
   // 进行预测
   val predictions = model.transform(testData)
   predictions.show(30)
