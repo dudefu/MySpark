@@ -1,38 +1,16 @@
-# 设置提交时过滤文件后缀
-*.class
+# 设置过滤文件夹
 .idea/
 .svn/
 target/
-*.log
-*.dat
 metastore_db/
+# 忽略hanlp 模型库文件
+SparkML_ClassNews/dictionaries/hanlp/data/*
+SparkML_ClassNews/models/*
+# 忽略测试文件夹
+*/src/test/*
 
-*.class
-*.log
 
-
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-# *.jar
-*.war
-*.ear
-
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
+# 设置过滤文件类型
 *.jar
 *.war
 *.nar
@@ -40,8 +18,16 @@ metastore_db/
 *.zip
 *.tar.gz
 *.rar
-# 忽略hanlp 模型库文件
-SparkML_ClassNews/dictionaries/hanlp/data/*
-SparkML_ClassNews/models/*
-# 忽略测试文件夹
-*/src/test/*
+*.dat
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+
+
+# 设置过滤文件名称
+
+
+
+
+
