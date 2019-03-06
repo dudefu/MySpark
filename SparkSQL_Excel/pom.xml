@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>MySpark</artifactId>
+        <groupId>com.hnbian.myspark</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>SparkSQL_Excel</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.tototoshi</groupId>
+            <artifactId>scala-csv_2.12</artifactId>
+            <version>1.3.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.norbitltd/spoiwo -->
+        <dependency>
+            <groupId>com.norbitltd</groupId>
+            <artifactId>spoiwo_2.12</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.monitorjbl/xlsx-streamer -->
+        <dependency>
+            <groupId>com.monitorjbl</groupId>
+            <artifactId>xlsx-streamer</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.crealytics/spark-excel -->
+        <!--依赖的spark excel 刚刚手动编译导入，如果使用的是scala2.11版本可以直接用此依赖-->
+       <!-- <dependency>
+            <groupId>com.crealytics</groupId>
+            <artifactId>spark-excel_2.11</artifactId>
+            <version>0.11.1</version>
+        </dependency>-->
+
+
+
+    </dependencies>
+
+</project>
