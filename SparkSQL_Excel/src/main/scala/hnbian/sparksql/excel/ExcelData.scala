@@ -12,7 +12,8 @@ object ExcelData {
     val spark = SparkUtils.getSparkSession("ExcelData", 4)
     val sqlContext = spark.sqlContext
 
-    val filePath = "D:\\test.xlsx"
+    //val filePath = "D:\\test.xlsx"
+    val filePath = "/opt/test.xlsx"
     val fileSavePath = "D:\\testWrite.xlsx"
 
     //定义数据结构
@@ -25,7 +26,7 @@ object ExcelData {
       StructField("c6", DateType, nullable = false)))
 
     val df = load(filePath,spark,schema)//读取Excel 文件
-    save(fileSavePath,df) //把刚刚都出来的内容写到另外一个文件中（复制上一个文件）
+    //save(fileSavePath,df) //把刚刚都出来的内容写到另外一个文件中（复制上一个文件）
   }
 
   /**
@@ -54,7 +55,7 @@ object ExcelData {
   def load(filePath:String,spark:SparkSession,schema:StructType): DataFrame ={
     val df = spark.read
       .format("com.crealytics.spark.excel")
-      .option("dataAddress", "'Sheet2'!A1:E2") // 可选,设置选择数据区域 例如 A1:E2。
+      .option("dataAddress", "'Sheet1'!A1:E2") // 可选,设置选择数据区域 例如 A1:E2。
       .option("useHeader", "false") // 必须，是否使用表头，false的话自己命名表头（_c0）,true则第一行为表头
       .option("treatEmptyValuesAsNulls", "true") // 可选, 是否将空的单元格设置为null ,如果不设置为null 遇见空单元格会报错 默认t: true
       .option("inferSchema", "true") // 可选, default: false
