@@ -1,6 +1,5 @@
 package hnbian.sparkml.algorithms.regression
 
-import hnbian.spark.ml.algorithms.classification.DecisionTreeClassifier.{data, labelIndexer}
 import hnbian.spark.utils.SparkUtils
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.evaluation.RegressionEvaluator
