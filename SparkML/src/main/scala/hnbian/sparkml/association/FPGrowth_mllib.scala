@@ -85,12 +85,7 @@ object FPGrowth_mllib extends App {
     }
   }
   candidates.toDF("k","v").where("size(k) == 3").show(90)
-
 */
-
-
-
-
 
   println("打印置信度")
   // 通过置信度筛选出推荐规则，
@@ -101,6 +96,7 @@ object FPGrowth_mllib extends App {
       x => {(x.antecedent.length>=2 && x.consequent.length == 1)} //过滤出前项长度为3 并且后项长度为1 的条件
     )
     .map(x => {
+      println(x.getClass)
     println(s"前项:${x.antecedent.toSet.toBuffer},后项:${x.consequent.toSet.toBuffer},置信度:${x.confidence},提升度:${x.lift}")
     /**
       * 前项:ArrayBuffer(A 4, B 4),后项:ArrayBuffer(H 4),置信度:0.488,提升度:Some(1.0935903614457831)
