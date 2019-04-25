@@ -15,6 +15,7 @@
         <module>SparkCore</module>
         <module>SparkStreaming</module>
         <module>SparkSQL_Excel</module>
+        <module>SparkSQL_SHC</module>
     </modules>
 <build>
     <plugins>
